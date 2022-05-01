@@ -2,7 +2,7 @@
   "name": "vscode-wxread",
   "displayName": "微信读书",
   "description": "微信读书插件",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.51.0"
   },
@@ -43,10 +43,10 @@
           "description": "代理服务端口"
         },
         "vscode-wxread.showStatusBarItem": {
-					"type": "boolean",
-					"default": true,
-					"description": "状态栏显示微信阅读图标"
-				}
+          "type": "boolean",
+          "default": true,
+          "description": "状态栏显示微信阅读图标"
+        }
       }
     }
   },
