@@ -1,27 +1,6 @@
-# vscode-extension-template
+# 微信阅读 VSCode 插件
 
-VSCode插件开发模板项目
+## 使用方法
 
-
-### 打包发布常用操作
-
-- 安装 VSCE
-
-```bash
-npm install -g vsce
-```
-
-- 登录插件中心
-```bash
-vsce login lstheart
-```
-> 获取Token: https://dev.azure.com/
-
-- 发布插件
-```bash
-vsce publish
-```
-- 打包插件
-```bash
-vsce package
-```
+- 通过命令打开：
+> `CTRL+SHIFT+P` 再输入：`wxread`

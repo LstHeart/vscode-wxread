@@ -1,7 +1,7 @@
 {
-  "name": "vscode-extension-template",
-  "displayName": "vscode-extension-template",
-  "description": "vscode插件开发模板",
+  "name": "vscode-wxread",
+  "displayName": "微信读书",
+  "description": "微信读书插件",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.51.0"
@@ -15,17 +15,35 @@
   },
   "publisher": "lstheart",
   "license": "MIT",
+  "keywords": [
+    "微信读书",
+    "微信阅读",
+    "阅读",
+    "wxread",
+    "wx",
+    "weread"
+  ],
+  "icon": "resources/logo.png",
   "activationEvents": [
-    "onCommand:vscode-extension-template.helloWorld"
+    "onCommand:wxread.start"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "vscode-extension-template.helloWorld",
-        "title": "Hello World"
+        "command": "wxread.start",
+        "title": "wxread"
       }
-    ]
+    ],
+    "configuration": {
+      "properties": {
+        "vscode-wxread.proxyPort": {
+          "type": "number",
+          "default": 9661,
+          "description": "代理服务端口"
+        }
+      }
+    }
   },
   "scripts": {
     "prepare": "husky install",
@@ -69,5 +87,10 @@
     "typescript": "^4.5.5",
     "webpack": "^5.70.0",
     "webpack-cli": "^4.9.2"
+  },
+  "dependencies": {
+    "@types/express": "^4.17.13",
+    "express": "^4.17.13",
+    "http-proxy-middleware": "^2.0.6"
   }
 }

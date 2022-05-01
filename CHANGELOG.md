@@ -1,9 +1,11 @@
-# Change Log
+# Changelog
 
-All notable changes to the "vscode-extension-template" extension will be documented in this file.
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [Unreleased]
+### 0.0.1 (2022-05-01)
 
-- Initial release
+
+### Features
+
+* 添加微信阅读 ([28ec526](https://github.com/LstHeart/vscode-wxread/commit/28ec526a0d962f94eeb5be7d531f988126d1e4be))
