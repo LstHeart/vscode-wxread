@@ -43,8 +43,6 @@ export function activate(context: ExtensionContext) {
         context.subscriptions
       );
     }
-
-    // vscode.window.showInformationMessage(`微信读书已启动,本地代理端口为${proxyPort}`);
   });
 
   const commandEvents = [wxreadStatusBar, configChange, wxreadStart];
@@ -52,5 +50,4 @@ export function activate(context: ExtensionContext) {
   context.subscriptions.push(...commandEvents);
 }
 
-// this method is called when your extension is deactivated
 export function deactivate() {}
