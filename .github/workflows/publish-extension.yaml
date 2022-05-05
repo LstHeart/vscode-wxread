@@ -1,41 +1,52 @@
 name: Publish-Extension
 
 on:
-  # push:
-  #   branches: [ main ]
+  push:
+    branches:
+      - main
   workflow_dispatch:
+    inputs:
+      publish_extension:
+        description: '是否发布到 VSCode Marketplace'
+        required: true
+        type: boolean
+        default: 'true'
 
 jobs:
-  build:
-  # env:
-  #   RELEASE: ${{startsWith(github.event.commits[0].message,'chore(release):')}}
+  deploy:
+    if: github.event.inputs.publish_extension=='true'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v3
+      - name: SetUp Node Environment
+        uses: actions/setup-node@v3
         with:
           node-version: 16.x
           cache: 'yarn'
-      - run: yarn install
       - name: Create Tag
+        id: tag
         run: |
           git config user.email ${{ secrets.USER_EMAIL }}
           git config user.name ${{ secrets.USER_NAME }}
-          yarn release
-      - name: Push changes
+          yarn install && yarn release
+          echo "::set-output name=release_tag::$(git describe --abbrev=0 --tags)"
+      - name: Push Changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: main
-#       - name: Push changes
-#         uses: ad-m/github-push-action@master
-#         with:
-#           github_token: ${{ secrets.GITHUB_TOKEN }}
-#           branch: ${{ github.ref }}
-#           tags: true
-      - name: Publish VS Code Extension
+          branch: ${{ github.ref }}
+          tags: true
+      - name: Package Extension
+        run: yarn package
+      - name: Release Extension
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.tag.outputs.release_tag }}
+          files: "./*.vsix"
+      - name: Publish Extension
         uses: HaaLeo/publish-vscode-extension@v1
         with:
           pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}

@@ -61,7 +61,7 @@
     "pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
-    "release": "standard-version",
+    "release": "standard-version -a",
     "package": "vsce package --no-yarn",
     "publish": "vsce publish --no-yarn"
   },
