@@ -5,7 +5,7 @@ import {
   workspace,
 } from "vscode";
 import * as proxy from "./server/proxy";
-import { StatusBar } from "./StatusBar";
+import { StatusBar } from "./statusBar";
 import { EventEmitter } from "./utils/event";
 import { START_COMMAND, configState } from "./utils/config";
 import { Panel } from "./panel";
