@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.4](https://github.com/LstHeart/vscode-wxread/compare/v0.0.3...v0.0.4) (2022-05-05)
+
+
+### Bug Fixes
+
+* issue fix ([04d3bee](https://github.com/LstHeart/vscode-wxread/commit/04d3bee4a77179250bf5e7584264093ad891bb79))
+
 ### 0.0.3 (2022-05-05)
 
 
