@@ -23,7 +23,8 @@ jobs:
         run: |
           git config user.email ${{ secrets.USER_EMAIL }}
           git config user.name ${{ secrets.USER_NAME }}
-          yarn release
+          git commit -m "test: test"
+          # yarn release
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
