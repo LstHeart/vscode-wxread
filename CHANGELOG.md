@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.7](https://github.com/LstHeart/vscode-wxread/compare/v0.0.6...v0.0.7) (2022-05-06)
+
+
+### Features
+
+* 代理服务器替换为更轻量的koa2-nginx ([b050d88](https://github.com/LstHeart/vscode-wxread/commit/b050d88b08cd93a5e7f3f32ea94b48d10326f8d5))
+
 ### [0.0.6](https://github.com/LstHeart/vscode-wxread/compare/v0.0.5...v0.0.6) (2022-05-05)
 
 ### [0.0.5](https://github.com/LstHeart/vscode-wxread/compare/v0.0.4...v0.0.5) (2022-05-05)
