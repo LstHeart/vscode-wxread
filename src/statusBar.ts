@@ -15,14 +15,12 @@ export class StatusBar extends Disposable {
   constructor(onDidChangeConfiguration: Event<ConfigurationChangeEvent>) {
     super();
 
-    const { proxyPort } = configState;
-
     const statusBarItem = window.createStatusBarItem(
       StatusBarAlignment.Right,
       100
     );
     statusBarItem.text = `$(book) 微信读书`;
-    statusBarItem.tooltip = `wxread proxy port is ${proxyPort}`;
+    statusBarItem.tooltip = `点击打开微信读书`;
     statusBarItem.command = START_COMMAND;
     this.statusBarItem = statusBarItem;
 
