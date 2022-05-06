@@ -6,46 +6,75 @@ on:
       - main
   workflow_dispatch:
     inputs:
-      publish_extension:
+      publishExtension:
         description: '是否发布到 VSCode Marketplace'
         required: true
         type: boolean
         default: 'true'
+      releaseVersion:
+        description: 每次发版版本号按哪种规则递增
+        require: true
+        default: 'patch'
+        type: choice
+        options:
+        - major
+        - minor
+        - patch
 
 jobs:
-  deploy:
-    if: github.event.inputs.publish_extension=='true'
+  build:
+    if: github.event.inputs.publishExtension=='true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
       - name: SetUp Node Environment
         uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: 14.x
           cache: 'yarn'
-      - name: Create Tag
-        id: tag
+
+      - name: Install Dependencies
         run: |
           git config user.email ${{ secrets.USER_EMAIL }}
           git config user.name ${{ secrets.USER_NAME }}
-          yarn install && yarn release
-          echo "::set-output name=release_tag::$(git describe --abbrev=0 --tags)"
+          yarn install
+
+      - if: github.event.inputs.releaseVersion!=''
+        run: yarn release --release-as ${{github.event.inputs.releaseVersion}}
+      - if: github.event.inputs.releaseVersion==''
+        run: yarn release
+
+      - name: Get Release Tag
+        id: tag
+        run: echo "::set-output name=release_tag::$(git describe --abbrev=0 --tags)"
+
       - name: Push Changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
           tags: true
+
+      - name: Get Release Notes
+        uses: yashanand1910/standard-release-notes@v1.2.1
+        id: get_release_notes
+        with:
+          version: ${{ steps.tag.outputs.release_tag }}
+
       - name: Package Extension
         run: yarn package
+
       - name: Release Extension
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.tag.outputs.release_tag }}
+          body: ${{ steps.get_release_notes.outputs.release_notes }}
           files: "./*.vsix"
+
       - name: Publish Extension
         uses: HaaLeo/publish-vscode-extension@v1
         with:
