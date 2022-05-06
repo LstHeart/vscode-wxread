@@ -3,24 +3,27 @@ import {
   commands,
   ConfigurationChangeEvent,
   workspace,
+  window,
 } from "vscode";
-import * as proxy from "./server/proxy";
+import * as proxy from "./server/koa-proxy";
 import { StatusBar } from "./statusBar";
 import { EventEmitter } from "./utils/event";
 import { START_COMMAND, configState } from "./utils/config";
 import { Panel } from "./panel";
+import getPort from "get-port";
 
 export function activate(context: ExtensionContext) {
   console.log('Congratulations, your extension "vscode.wxread" is now active!');
 
   let currentPanel: Panel | undefined = undefined;
-  const { proxyPort } = configState;
+  let proxyServer: any;
+  let proxyStarted = false;
 
   // 状态栏
   const configurationEmitter = new EventEmitter<ConfigurationChangeEvent>();
   const onDidChangeConfiguration = configurationEmitter.subscribe;
 
-  let wxreadStatusBar = new StatusBar(onDidChangeConfiguration);
+  let wxreadStatusBar: StatusBar = new StatusBar(onDidChangeConfiguration);
 
   const configChange = workspace.onDidChangeConfiguration((event) => {
     if (event.affectsConfiguration("vscode-wxread.showStatusBarItem")) {
@@ -28,16 +31,28 @@ export function activate(context: ExtensionContext) {
     }
   });
 
-  let wxreadStart = commands.registerCommand(START_COMMAND, () => {
+  let wxreadStart = commands.registerCommand(START_COMMAND, async () => {
+    const { proxyPort } = configState;
+
+    const portResult = await getPort({ port: configState.proxyPort });
+    if (portResult !== proxyPort && !proxyStarted) {
+      window.showErrorMessage(
+        `微信读书默认代理端口${proxyPort}已占用,请调整后继续!`
+      );
+      return;
+    }
+
     if (!currentPanel) {
       // 启用代理
-      proxy.startProxy(proxyPort);
+      proxyServer = proxy.startProxy(proxyPort);
+      proxyStarted = true;
 
       // 实例化Panel
       currentPanel = new Panel(context);
       currentPanel.onDidDispose(
         () => {
           currentPanel = undefined;
+          proxyServer.close();
         },
         undefined,
         context.subscriptions
