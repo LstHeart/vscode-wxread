@@ -3,6 +3,7 @@
 'use strict';
 
 const path = require('path');
+const { ESBuildMinifyPlugin } = require('esbuild-loader')
 
 //@ts-check
 /** @typedef {import('webpack').Configuration} WebpackConfig **/
@@ -10,12 +11,12 @@ const path = require('path');
 /** @type WebpackConfig */
 const extensionConfig = {
   target: 'node', // vscode extensions run in a Node.js-context 📖 -> https://webpack.js.org/configuration/node/
-	mode: 'none', // this leaves the source code as close as possible to the original (when packaging we set this to 'production')
+  mode: 'production', // this leaves the source code as close as possible to the original (when packaging we set this to 'production')
 
   entry: './src/extension.ts', // the entry point of this extension, 📖 -> https://webpack.js.org/configuration/entry-context/
   output: {
     // the bundle is stored in the 'dist' folder (check package.json), 📖 -> https://webpack.js.org/configuration/output/
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '../dist'),
     filename: 'extension.js',
     libraryTarget: 'commonjs2'
   },
@@ -32,17 +33,24 @@ const extensionConfig = {
       {
         test: /\.ts$/,
         exclude: /node_modules/,
-        loader:'esbuild-loader',
-        options:{
-          loader:'ts',
-          target:'es2015'
+        loader: 'esbuild-loader',
+        options: {
+          loader: 'ts',
+          target: 'es2015'
         }
       }
     ]
   },
-  devtool: 'nosources-source-map',
+  devtool: 'hidden-source-map',
   infrastructureLogging: {
     level: "log", // enables logging required for problem matchers
   },
+  // optimization: {
+  //   minimizer: [
+  //     new ESBuildMinifyPlugin({
+  //       target: 'es2015'  // Syntax to compile to (see options below for possible values)
+  //     })
+  //   ]
+  // },
 };
-module.exports = [ extensionConfig ];
+module.exports = [extensionConfig];
