@@ -23,3 +23,4 @@
 - [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware)
 - [koa2-nginx](https://github.com/my9074/koa2-nginx)
 - [get-port](https://github.com/sindresorhus/get-port)
+- [connect](https://github.com/senchalabs/connect)
