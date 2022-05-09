@@ -20,6 +20,7 @@ export default defineConfig({
   build: {
     minify: 'false',
     target:'node16',
+    sourcemap:true,
     lib: {
       entry: path.resolve(__dirname, mainFile),
       name: 'vscode-wxread',
@@ -28,13 +29,13 @@ export default defineConfig({
     },
     rollupOptions: {
       input: mainFile,
-      // // output: {
-      // //   // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
-      // //   globals: {
-      // //     vscode: 'vscode'
-      // //   },
-      // //   format: 'cjs',
-      // // },
+      // output: {
+      //   // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
+      //   // globals: {
+      //   //   vscode: 'vscode'
+      //   // },
+      //   // format: 'cjs',
+      // },
       // // 确保外部化处理那些你不想打包进库的依赖
       external: ['vscode'],
       // plugins:[
@@ -49,7 +50,12 @@ export default defineConfig({
     }
   },
   plugins: [
-    visualizer(), // 打包分析插件，输出文件为stats.html
+    visualizer(
+      {
+        sourcemap: true,
+        template:'treemap'
+      }
+    ), // 打包分析插件，输出文件为stats.html
 
     // commonjs(
     //   {
