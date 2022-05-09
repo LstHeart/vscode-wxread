@@ -10,7 +10,7 @@ import { StatusBar } from "./statusBar";
 import { EventEmitter } from "./utils/event";
 import { START_COMMAND, configState } from "./utils/config";
 import { Panel } from "./panel";
-import getPort from "get-port";
+// import getPort from "get-port";
 
 export function activate(context: ExtensionContext) {
   console.log('Congratulations, your extension "vscode.wxread" is now active!');
@@ -34,13 +34,13 @@ export function activate(context: ExtensionContext) {
   let wxreadStart = commands.registerCommand(START_COMMAND, async () => {
     const { proxyPort } = configState;
 
-    const portResult = await getPort({ port: configState.proxyPort });
-    if (portResult !== proxyPort && !proxyStarted) {
-      window.showErrorMessage(
-        `微信读书默认代理端口${proxyPort}已占用,请调整后继续!`
-      );
-      return;
-    }
+    // const portResult = await getPort({ port: configState.proxyPort });
+    // if (portResult !== proxyPort && !proxyStarted) {
+    //   window.showErrorMessage(
+    //     `微信读书默认代理端口${proxyPort}已占用,请调整后继续!`
+    //   );
+    //   return;
+    // }
 
     if (!currentPanel) {
       // 启用代理
