@@ -45,7 +45,17 @@
         "vscode-wxread.showStatusBarItem": {
           "type": "boolean",
           "default": true,
-          "description": "状态栏显示微信阅读图标"
+          "description": "状态栏显示微信读书图标"
+        },
+        "vscode-wxread.showPanelIcon": {
+          "type": "boolean",
+          "default": true,
+          "description": "标签页显示logo"
+        },
+        "vscode-wxread.panelTitle": {
+          "type": "string",
+          "default": "微信读书",
+          "description": "标签页标题"
         }
       }
     }
@@ -54,7 +64,7 @@
     "prepare": "husky install",
     "vscode:prepublish": "yarn run build-webpack",
     "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
-    "watch": "yarn run esbuild-base -- --sourcemap --watch",
+    "watch": "webpack -c ./build/webpack.config.js --watch",
     "build": "yarn run esbuild-base --minify",
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",

@@ -6,15 +6,17 @@ import {
   WebviewPanel,
 } from "vscode";
 import path from "path";
-import { configState, PANEL_TITLE } from "./utils/config";
+import { configState } from "./utils/config";
 
 export class Panel {
   onDidDispose: any;
   // private panel: WebviewPanel;
   constructor(context: ExtensionContext) {
+    const panelTitle = configState.panelTitle;
+
     let panel: WebviewPanel | undefined = window.createWebviewPanel(
       "wxread",
-      PANEL_TITLE,
+      panelTitle,
       ViewColumn.One,
       {
         enableScripts: true, // 启用js
@@ -23,9 +25,11 @@ export class Panel {
     );
 
     // 设定标题图标
-    panel.iconPath = Uri.file(
-      path.join(context.extensionPath, "resources/weread.png")
-    );
+    if (configState.showPanelIcon) {
+      panel.iconPath = Uri.file(
+        path.join(context.extensionPath, "resources/weread.png")
+      );
+    }
 
     panel.webview.html = `<!DOCTYPE html>
 								<html lang="en">
@@ -38,7 +42,7 @@ export class Panel {
 									<meta content="yes" name="full-screen">
 									<meta content="webkit" name="renderer">
 									<meta content="IE=Edge" http-equiv="X-UA-Compatible">
-									<title>${PANEL_TITLE}</title>
+									<title>${panelTitle}</title>
 									<style>
 									html,body,iframe{
 										width:100%;
