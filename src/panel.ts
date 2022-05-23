@@ -11,9 +11,7 @@ import { configState } from "./utils/config";
 export class Panel {
   onDidDispose: any;
   // private panel: WebviewPanel;
-  constructor(context: ExtensionContext) {
-    const panelTitle = configState.panelTitle;
-
+  constructor(context: ExtensionContext, panelTitle: string, port: number) {
     let panel: WebviewPanel | undefined = window.createWebviewPanel(
       "wxread",
       panelTitle,
@@ -41,7 +39,6 @@ export class Panel {
 									<meta content="portrait" name="screen-orientation">
 									<meta content="yes" name="full-screen">
 									<meta content="webkit" name="renderer">
-									<meta content="IE=Edge" http-equiv="X-UA-Compatible">
 									<title>${panelTitle}</title>
 									<style>
 									html,body,iframe{
@@ -53,7 +50,7 @@ export class Panel {
 									</style>
 								</head>
 								<body>
-									<iframe src="http://localhost:${configState.proxyPort}"/>
+									<iframe src="http://localhost:${port}"/>
 								</body>
 								</html>`;
 

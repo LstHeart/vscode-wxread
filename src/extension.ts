@@ -15,7 +15,7 @@ import getPort from "get-port";
 export function activate(context: ExtensionContext) {
   console.log('Congratulations, your extension "vscode.wxread" is now active!');
 
-  let currentPanel: Panel | undefined = undefined;
+  let currentPanel: Panel | null | undefined = undefined;
   let proxyServer: any;
   let proxyStarted = false;
 
@@ -32,7 +32,7 @@ export function activate(context: ExtensionContext) {
   });
 
   let wxreadStart = commands.registerCommand(START_COMMAND, async () => {
-    const { proxyPort } = configState;
+    const { proxyPort, panelTitle } = configState;
 
     const portResult = await getPort({ port: configState.proxyPort });
     if (portResult !== proxyPort && !proxyStarted) {
@@ -48,10 +48,10 @@ export function activate(context: ExtensionContext) {
       proxyStarted = true;
 
       // 实例化Panel
-      currentPanel = new Panel(context);
+      currentPanel = new Panel(context, panelTitle, proxyPort);
       currentPanel.onDidDispose(
         () => {
-          currentPanel = undefined;
+          currentPanel = null;
           proxyServer.close();
         },
         undefined,
