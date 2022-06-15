@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.11](https://github.com/LstHeart/vscode-wxread/compare/v0.0.10...v0.0.11) (2022-06-15)
+
+
+### 🐛 Bug Fixes
+
+* 个人笔记无法正常显示 ([e2f328b](https://github.com/LstHeart/vscode-wxread/commit/e2f328bfab8dfb932c13e656e81f4acc669673bb))
+
 ### [0.0.10](https://github.com/LstHeart/vscode-wxread/compare/v0.0.9...v0.0.10) (2022-05-23)
 
 
