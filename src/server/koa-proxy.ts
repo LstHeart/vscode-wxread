@@ -36,7 +36,7 @@ const options = {
 
       if (req.url.includes("/web/book/bookmarklist")) {
         const proxyUrl = `${proxyRes.req.protocol}//${proxyRes.req.host}${proxyRes.req.path}`;
-
+        res.setHeader("cache-control", "no-store");
         const resp = await fetch(proxyUrl, {
           method: "GET",
           credentials: "include",
