@@ -1,4 +1,6 @@
-import fetch from "umi-request";
+// import fetch from "umi-request";
+// TODO nodejs18 之后会内置fetch，之后可移除改依赖
+import { fetch } from "undici";
 import http from "http";
 const {
   createProxyMiddleware,
@@ -45,7 +47,9 @@ const options = {
           },
         });
 
-        return JSON.stringify(resp);
+        const result = await resp.json();
+
+        return JSON.stringify(result);
       }
 
       return responseBuffer;

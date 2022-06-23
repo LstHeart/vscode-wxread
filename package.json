@@ -125,5 +125,8 @@
     "vsce": "^2.7.0",
     "webpack": "^5.70.0",
     "webpack-cli": "^4.9.2"
+  },
+  "dependencies": {
+    "undici": "^5.5.1"
   }
 }
