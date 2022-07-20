@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.13](https://github.com/LstHeart/vscode-wxread/compare/v0.0.12...v0.0.13) (2022-07-20)
+
+
+### ♻️ Code Refactoring
+
+* 用undici替换umi-request库，减小打包体积 ([c17d244](https://github.com/LstHeart/vscode-wxread/commit/c17d24461a4d0e132441a3d874779fd5f347eb6f))
+
+
+### ✨ Features
+
+* 新增opacity配置项，用于调整页面不透明度 ([bfa3ba3](https://github.com/LstHeart/vscode-wxread/commit/bfa3ba3d0c50b345f0c3b48728f163377734e722))
+
 ### [0.0.12](https://github.com/LstHeart/vscode-wxread/compare/v0.0.11...v0.0.12) (2022-06-15)
 
 
