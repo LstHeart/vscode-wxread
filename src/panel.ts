@@ -33,19 +33,16 @@ export class Panel {
 								<html lang="en">
 								<head>
 									<meta charset="UTF-8">
-									<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-									<meta content="portrait" name="x5-orientation">
-									<meta content="true" name="x5-fullscreen">
-									<meta content="portrait" name="screen-orientation">
-									<meta content="yes" name="full-screen">
-									<meta content="webkit" name="renderer">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 									<title>${panelTitle}</title>
 									<style>
 									html,body,iframe{
-										width:100%;
+										width:101.5%;
 										height:100%;
 										border:0;
+                    padding:0;
 										overflow: hidden;
+                    opacity:${configState.panelOpacity};
 									}
 									</style>
 								</head>

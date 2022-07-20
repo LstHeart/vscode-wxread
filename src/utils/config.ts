@@ -18,6 +18,9 @@ const configState = {
   get showPanelIcon() {
     return getConfig("vscode-wxread.showPanelIcon") as boolean;
   },
+  get panelOpacity() {
+    return getConfig("vscode-wxread.panelOpacity") as number;
+  },
 };
 
 function getConfig(key: string) {
