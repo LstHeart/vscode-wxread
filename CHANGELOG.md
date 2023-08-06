@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.14](https://github.com/LstHeart/vscode-wxread/compare/v0.0.13...v0.0.14) (2023-08-06)
+
+
+### ✨ Features
+
+* 新增配置项hideScrollbar, 用于隐藏页面右侧滚动条(默认隐藏) ([33ace22](https://github.com/LstHeart/vscode-wxread/commit/33ace22f07c09740bd6636098962011198b657b6))
+* 远程开发环境代理端口自动转发 ([6aec169](https://github.com/LstHeart/vscode-wxread/commit/6aec1690922801044983d9ae5c1e4c244dbd23ea))
+
+
+### 🐛 Bug Fixes
+
+* 登录90分钟后需要重新登录的问题 ([cb66f25](https://github.com/LstHeart/vscode-wxread/commit/cb66f25a628d2fef8a73dc17dab1a2493b31b5de))
+
 ### [0.0.13](https://github.com/LstHeart/vscode-wxread/compare/v0.0.12...v0.0.13) (2022-07-20)
 
 
