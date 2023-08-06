@@ -61,6 +61,11 @@
           "type": "number",
           "default": 1,
           "description": "页面不透明度"
+        },
+        "vscode-wxread.hideScrollbar": {
+          "type": "boolean",
+          "default": true,
+          "description": "隐藏右侧滚动条"
         }
       }
     }

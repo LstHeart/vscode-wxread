@@ -29,6 +29,8 @@ export class Panel {
       );
     }
 
+    const extWidth = configState.hideScrollbar ? "7px" : "0px";
+
     panel.webview.html = `<!DOCTYPE html>
 								<html lang="en">
 								<head>
@@ -37,7 +39,7 @@ export class Panel {
 									<title>${panelTitle}</title>
 									<style>
 									html,body,iframe{
-										width:101.5%;
+										width:calc(100% + ${extWidth});
 										height:100%;
 										border:0;
                     padding:0;
