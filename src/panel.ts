@@ -11,7 +11,7 @@ import { configState } from "./utils/config";
 export class Panel {
   onDidDispose: any;
   // private panel: WebviewPanel;
-  constructor(context: ExtensionContext, panelTitle: string, port: number) {
+  constructor(context: ExtensionContext, panelTitle: string, proxyUri: Uri) {
     let panel: WebviewPanel | undefined = window.createWebviewPanel(
       "wxread",
       panelTitle,
@@ -47,7 +47,7 @@ export class Panel {
 									</style>
 								</head>
 								<body>
-									<iframe src="http://localhost:${port}"/>
+                  <iframe src="${proxyUri}" id="wxread-iframe" />
 								</body>
 								</html>`;
 

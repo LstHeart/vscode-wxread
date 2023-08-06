@@ -8,9 +8,10 @@ import {
 import * as proxy from "./server/koa-proxy";
 import { StatusBar } from "./statusBar";
 import { EventEmitter } from "./utils/event";
-import { START_COMMAND, configState } from "./utils/config";
+import { START_COMMAND, configState, getProxyUri } from "./utils/config";
 import { Panel } from "./panel";
 import getPort from "get-port";
+import { WXProxy } from "./server/koa-proxy";
 
 export function activate(context: ExtensionContext) {
   console.log('Congratulations, your extension "vscode.wxread" is now active!');
@@ -47,16 +48,26 @@ export function activate(context: ExtensionContext) {
       proxyServer = proxy.startProxy(proxyPort);
       proxyStarted = true;
 
-      // 实例化Panel
-      currentPanel = new Panel(context, panelTitle, proxyPort);
-      currentPanel.onDidDispose(
-        () => {
-          currentPanel = null;
-          proxyServer.close();
-        },
-        undefined,
-        context.subscriptions
-      );
+      try {
+        let proxyUri = await getProxyUri();
+        console.log(
+          "wx-proxyUrl:",
+          proxyUri.scheme + "://" + proxyUri.authority
+        );
+
+        // 实例化Panel
+        currentPanel = new Panel(context, panelTitle, proxyUri);
+        currentPanel.onDidDispose(
+          () => {
+            currentPanel = null;
+            proxyServer.close();
+          },
+          undefined,
+          context.subscriptions
+        );
+      } catch (err) {
+        console.log("wx-err:", err);
+      }
     }
   });
 
