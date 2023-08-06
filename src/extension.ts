@@ -5,7 +5,6 @@ import {
   workspace,
   window,
 } from "vscode";
-import * as proxy from "./server/koa-proxy";
 import { StatusBar } from "./statusBar";
 import { EventEmitter } from "./utils/event";
 import { START_COMMAND, configState, getProxyUri } from "./utils/config";
@@ -15,11 +14,11 @@ import { WXProxy } from "./server/koa-proxy";
 
 export function activate(context: ExtensionContext) {
   console.log('Congratulations, your extension "vscode.wxread" is now active!');
+  console.log("wx-active-renewalKey", context.globalState.get("renewalKey"));
 
   let currentPanel: Panel | null | undefined = undefined;
   let proxyServer: any;
   let proxyStarted = false;
-
   // 状态栏
   const configurationEmitter = new EventEmitter<ConfigurationChangeEvent>();
   const onDidChangeConfiguration = configurationEmitter.subscribe;
@@ -45,7 +44,7 @@ export function activate(context: ExtensionContext) {
 
     if (!currentPanel) {
       // 启用代理
-      proxyServer = proxy.startProxy(proxyPort);
+      proxyServer = new WXProxy(context, proxyPort);
       proxyStarted = true;
 
       try {
